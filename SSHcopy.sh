@@ -48,7 +48,7 @@ sudo git config --global user.name "$GIT_PUDNAME"
 #--------------------------------------------------
 echo -e "\n==== Installing ODOO Server ===="
 #sudo git clone --depth 1 --branch $OE_VERSION https://www.github.com/odoo/odoo $OE_HOME_EXT/
-git clone -c "core.sshCommand=ssh -i ~/.ssh/$GIT_PUDNAME -F /dev/null" git@github.com:$GIT_FILELOCATION
+sudo git clone -c "core.sshCommand=ssh -i /$OE_USER/.ssh/${GIT_PUDNAME}.pub -F /dev/null" git@github.com:$GIT_FILELOCATION
 
 #sudo git fetch --all 
 #sudo git checkout remotes/origin/$GIT_checkout
