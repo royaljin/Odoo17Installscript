@@ -36,6 +36,7 @@ echo -e "\n-- Copy SSH credentials to Github --"
 cat $OE_HOME/.ssh/odoo.pub
 read -p "Copy and Press enter to continue to downloading"
 
+cd ..
 sudo git config --global user.email "$GIT_USER"
 sudo git config --global user.name "$GIT_PUDNAME"
 
