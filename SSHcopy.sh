@@ -12,6 +12,8 @@ GIT_PASSPHASE=$3
 GIT_FILELOCATION=$4
 GIT_checkout=$5
 
+echo -e "\n---- $GIT_USER \t $GIT_PUDNAME \t $GIT_PASSPHASE----"
+
 echo -e "\n---- Create ODOO system user ----"
 sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USER
 #The user should also be added to the sudo'ers group.
