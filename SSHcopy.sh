@@ -30,7 +30,7 @@ sudo chown $OE_USER:$OE_USER /var/log/$OE_USER
 echo -e "\n---- Create SSH credentials for Github ----"
 sudo mkdir $OE_HOME/.ssh
 sudo cd $OE_HOME/.ssh
-read -p "Enter Git username: " OE_email
+#read -p "Enter Git username: " OE_email
 ssh-keygen -t rsa -b 4096 -C "$OE_email"  -p "$GIT_PASSPHASE" -f "$GIT_PUDNAME"
 echo -e "\n-- Copy SSH credentials to Github --"
 cat $OE_HOME/.ssh/odoo.pub
