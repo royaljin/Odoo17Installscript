@@ -12,7 +12,14 @@
 # sudo chmod +x odoo-install.sh
 # Execute the script to install Odoo:
 # ./odoo-install
+# sudo ./SSHgit.sh "royaljin@gmail.com" "odoo" "royaljin/odoo17.git" "LTSvA1.04" "/home/jintu"
 ################################################################################
+
+GIT_USER=$1
+GIT_PUDNAME=$2
+GIT_FILELOCATION=$3
+GIT_checkout=$4
+GIT_Home=$5
 
 OE_USER="odoo"
 OE_HOME="/$OE_USER"
@@ -145,11 +152,42 @@ sudo mkdir /var/log/$OE_USER
 sudo chown $OE_USER:$OE_USER /var/log/$OE_USER
 
 #--------------------------------------------------
+# Configuring GIT
+#--------------------------------------------------
+echo -e "\n---- Create SSH credentials for Github ----"
+sudo mkdir $GIT_Home/.ssh
+cd $GIT_Home/.ssh
+ssh-keygen -t rsa -b 4096 -C "$OE_email"
+echo -e "\n-- Copy SSH credentials to Github --"
+cd ..
+cat $GIT_Home/.ssh/$GIT_PUDNAME.pub
+read -p "Copy Key to GITHUB, after which Press enter to continue"
+
+sudo chmod 700 $GIT_Home/.ssh/
+sudo chmod 700 $GIT_Home/.ssh/${GIT_PUDNAME}.pub
+
+sudo git config --global user.email "$GIT_USER"
+sudo git config --global user.name "$GIT_PUDNAME"
+
+
+
+
+
+#--------------------------------------------------
 # Install ODOO
 #--------------------------------------------------
 echo -e "\n==== Installing ODOO Server ===="
-sudo git clone --depth 1 --branch $OE_VERSION https://www.github.com/odoo/odoo $OE_HOME_EXT/
-git clone -c "core.sshCommand=ssh -i ~/.ssh/dev46-odooa -F /dev/null" git@github.com:royaljin/odoo17.git
+
+cd /$OE_USER
+#sudo git clone --depth 1 --branch $OE_VERSION https://www.github.com/odoo/odoo $OE_HOME_EXT/
+sudo git clone -c "core.sshCommand=ssh -i $GIT_Home/.ssh/$GIT_PUDNAME -F /dev/null" git@github.com:$GIT_FILELOCATION
+
+cd odoo17
+
+sudo git fetch --all
+sudo git checkout remotes/origin/$GIT_checkout
+
+cd /
 
 if [ $IS_ENTERPRISE = "True" ]; then
     # Odoo Enterprise install!
