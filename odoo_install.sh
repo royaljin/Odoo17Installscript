@@ -12,7 +12,6 @@
 # sudo chmod +x odoo-install.sh
 # Execute the script to install Odoo:
 # ./odoo-install
-# sudo ./SSHgit.sh "royaljin@gmail.com" "odoo" "royaljin/odoo17.git" "LTSvA1.04" "/home/jintu"
 ################################################################################
 
 GIT_USER=$1
@@ -23,7 +22,7 @@ GIT_Home=$5
 
 OE_USER="odoo"
 OE_HOME="/$OE_USER"
-OE_HOME_EXT="/$OE_USER/${OE_USER}-server"
+OE_HOME_EXT="/$OE_USER/${OE_USER}17"
 # The default port where this Odoo instance will run under (provided you use the command -c in the terminal)
 # Set to true if you want to install it, false if you don't need it or have it already installed.
 INSTALL_WKHTMLTOPDF="True"
@@ -70,9 +69,9 @@ else
 fi
 
 #--------------------------------------------------
-# Update Server
+# Update 
 #--------------------------------------------------
-echo -e "\n---- Update Server ----"
+echo -e "\n---- Update  ----"
 # universe package is for Ubuntu 18.x
 # sudo add-apt-repository universe
 # libpng12-0 dependency for wkhtmltopdf for older Ubuntu versions
@@ -82,9 +81,9 @@ sudo apt-get upgrade -y
 sudo apt-get install libpq-dev
 
 #--------------------------------------------------
-# Install PostgreSQL Server
+# Install PostgreSQL 
 #--------------------------------------------------
-echo -e "\n---- Install PostgreSQL Server ----"
+echo -e "\n---- Install PostgreSQL  ----"
 if [ $INSTALL_POSTGRESQL_FOURTEEN = "True" ]; then
     echo -e "\n---- Installing postgreSQL V14 due to the user it's choise ----"
     sudo curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
@@ -93,7 +92,7 @@ if [ $INSTALL_POSTGRESQL_FOURTEEN = "True" ]; then
     sudo apt-get install postgresql-16
 else
     echo -e "\n---- Installing the default postgreSQL version based on Linux version ----"
-    sudo apt-get install postgresql postgresql-server-dev-all -y
+    sudo apt-get install postgresql postgresql--dev-all -y
 fi
 
 
@@ -176,7 +175,7 @@ sudo git config --global user.name "$GIT_PUDNAME"
 #--------------------------------------------------
 # Install ODOO
 #--------------------------------------------------
-echo -e "\n==== Installing ODOO Server ===="
+echo -e "\n==== Installing ODOO  ===="
 
 cd /$OE_USER
 #sudo git clone --depth 1 --branch $OE_VERSION https://www.github.com/odoo/odoo $OE_HOME_EXT/
